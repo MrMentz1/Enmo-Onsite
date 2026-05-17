@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enmo Onsite | Workplace Physical Therapy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #1D9E75;
+      --green-dark: #0F6E56;
+      --green-light: #E1F5EE;
+      --text: #111;
+      --muted: #666;
+      --border: rgba(0,0,0,0.1);
+      --bg: #fff;
+      --bg2: #f8f8f6;
+      --radius: 10px;
+      --font-head: 'DM Serif Display', serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--text);
+      background: var(--bg);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo { font-family: var(--font-body); font-size: 18px; font-weight: 500; color: var(--text); text-decoration: none; }
+    .logo span { color: var(--green); }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a { font-size: 14px; color: var(--muted); text-decoration: none; transition: color 0.2s; cursor: pointer; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      font-size: 13px; font-weight: 500; padding: 8px 20px;
+      background: var(--green); color: #fff;
+      border: none; border-radius: 100px; cursor: pointer;
+      transition: opacity 0.2s; text-decoration: none;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* PAGES */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* HERO */
+    .hero {
+      padding: 7rem 2.5rem 5rem;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -60px; right: -80px;
+      width: 420px; height: 420px;
+      background: radial-gradient(circle, rgba(29,158,117,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 740px; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 1.5rem;
+    }
+    .eyebrow::before {
+      content: ''; display: block; width: 20px; height: 2px; background: var(--green);
+    }
+    .hero h1 {
+      font-family: var(--font-head);
+      font-size: clamp(36px, 5vw, 58px); font-weight: 400;
+      line-height: 1.1; margin-bottom: 1.5rem; color: var(--text);
+    }
+    .hero h1 em { font-style: italic; color: var(--green); }
+    .hero p { font-size: 18px; color: var(--muted); max-width: 520px; margin-bottom: 2.5rem; line-height: 1.75; }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary {
+      padding: 13px 28px; background: var(--green); color: #fff;
+      border-radius: 100px; border: none; font-size: 15px; font-family: var(--font-body);
+      cursor: pointer; transition: opacity 0.2s; font-weight: 500;
+    }
+    .btn-primary:hover { opacity: 0.87; }
+    .btn-outline {
+      padding: 13px 28px; background: transparent; color: var(--text);
+      border-radius: 100px; border: 1.5px solid var(--border);
+      font-size: 15px; font-family: var(--font-body); cursor: pointer;
+      transition: border-color 0.2s; font-weight: 400;
+    }
+    .btn-outline:hover { border-color: rgba(0,0,0,0.3); }
+
+    .trust-bar {
+      display: flex; align-items: center; gap: 0;
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 8px;
+      padding: 1.1rem 2rem; font-size: 13px; color: var(--muted);
+      border-right: 1px solid var(--border); white-space: nowrap;
+    }
+    .trust-item svg { color: var(--green); flex-shrink: 0; }
+
+    /* SECTIONS */
+    .section { padding: 5rem 2.5rem; max-width: 900px; margin: 0 auto; }
+    .section-label {
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--green); font-weight: 500; margin-bottom: 0.6rem;
+    }
+    .section h2 {
+      font-family: var(--font-head); font-size: clamp(28px, 3.5vw, 40px);
+      font-weight: 400; margin-bottom: 1rem; line-height: 1.2;
+    }
+    .section .sub { font-size: 17px; color: var(--muted); max-width: 580px; line-height: 1.75; margin-bottom: 3rem; }
+
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .card {
+      background: var(--bg); padding: 1.75rem 1.5rem;
+      border-right: 1px solid var(--border);
+    }
+    .card:last-child { border-right: none; }
+    .card-num { font-size: 11px; letter-spacing: 0.08em; color: var(--green); font-weight: 500; margin-bottom: 1rem; }
+    .card h3 { font-size: 15px; font-weight: 500; margin-bottom: 8px; }
+    .card p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-top: 3rem; }
+    .stat { background: var(--bg2); padding: 2rem 1.5rem; }
+    .stat-num { font-family: var(--font-head); font-size: 42px; color: var(--green); line-height: 1; }
+    .stat-label { font-size: 13px; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+
+    .quote-block {
+      margin-top: 3rem; padding: 2rem 2.5rem;
+      border: 1px solid var(--border); border-radius: var(--radius);
+      background: var(--bg);
+      border-left: 4px solid var(--green);
+    }
+    .quote-block p { font-family: var(--font-head); font-size: 20px; line-height: 1.6; color: var(--text); margin-bottom: 1rem; }
+    .quote-block cite { font-size: 13px; color: var(--muted); font-style: normal; }
+
+    .cta-band {
+      background: var(--green); color: #fff;
+      padding: 4rem 2.5rem; text-align: center;
+    }
+    .cta-band h2 { font-family: var(--font-head); font-size: 36px; font-weight: 400; margin-bottom: 1rem; }
+    .cta-band p { font-size: 17px; opacity: 0.85; margin-bottom: 2rem; }
+    .btn-white {
+      padding: 13px 32px; background: #fff; color: var(--green);
+      border-radius: 100px; border: none; font-size: 15px; font-family: var(--font-body);
+      cursor: pointer; font-weight: 500; transition: opacity 0.2s;
+    }
+    .btn-white:hover { opacity: 0.9; }
+
+    /* SERVICES */
+    .service-row {
+      display: grid; grid-template-columns: 80px 1fr;
+      gap: 1.5rem; padding: 2rem 0;
+      border-bottom: 1px solid var(--border); align-items: start;
+    }
+    .service-row:first-of-type { border-top: 1px solid var(--border); }
+    .service-num { font-family: var(--font-head); font-size: 36px; color: var(--border); line-height: 1; padding-top: 4px; }
+    .service-body h3 { font-size: 18px; font-weight: 500; margin-bottom: 8px; }
+    .service-body p { font-size: 15px; color: var(--muted); line-height: 1.7; }
+    .tag {
+      display: inline-block; margin-top: 12px; font-size: 11px; font-weight: 500;
+      padding: 3px 12px; border-radius: 100px;
+      background: var(--green-light); color: var(--green-dark);
+    }
+
+    /* ABOUT */
+    .about-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .about-text p { font-size: 16px; color: var(--muted); line-height: 1.8; margin-bottom: 1.25rem; }
+    .cred-list { list-style: none; }
+    .cred-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 0; border-bottom: 1px solid var(--border);
+      font-size: 14px; color: var(--muted);
+    }
+    .cred-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+
+    /* CONTACT */
+    .contact-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: start; }
+    .contact-info p { font-size: 16px; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; }
+    .contact-detail { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; font-size: 14px; color: var(--muted); }
+    .contact-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; flex-shrink: 0; }
+
+    .form-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 2rem;
+    }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { font-size: 12px; font-weight: 500; letter-spacing: 0.04em; color: var(--muted); display: block; margin-bottom: 6px; text-transform: uppercase; }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%; padding: 10px 14px;
+      border: 1px solid var(--border); border-radius: 8px;
+      background: #fff; font-size: 14px; font-family: var(--font-body);
+      color: var(--text); outline: none; transition: border-color 0.2s;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--green); }
+    .form-group textarea { height: 100px; resize: vertical; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .submit-btn {
+      width: 100%; padding: 12px; background: var(--green); color: #fff;
+      border: none; border-radius: 8px; font-size: 15px; font-family: var(--font-body);
+      font-weight: 500; cursor: pointer; transition: opacity 0.2s; margin-top: 4px;
+    }
+    .submit-btn:hover { opacity: 0.87; }
+    .success-msg {
+      display: none; text-align: center; padding: 3rem 1rem;
+      color: var(--green);
+    }
+    .success-msg .check { font-size: 48px; margin-bottom: 1rem; }
+    .success-msg h3 { font-family: var(--font-head); font-size: 24px; margin-bottom: 8px; }
+    .success-msg p { font-size: 15px; color: var(--muted); }
+
+    footer {
+      padding: 2rem 2.5rem; border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+    }
+    footer .logo { font-size: 15px; }
+    footer p { font-size: 13px; color: var(--muted); }
+
+    @media (max-width: 640px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links a { display: none; }
+      .hero { padding: 4rem 1.25rem 3rem; }
+      .section { padding: 3rem 1.25rem; }
+      .stats { grid-template-columns: 1fr; }
+      .about-layout, .contact-layout { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" onclick="showPage('home')" href="#">Enmo<span>Onsite</span></a>
+  <div class="nav-links">
+    <a onclick="showPage('home')">Home</a>
+    <a onclick="showPage('services')">Services</a>
+    <a onclick="showPage('about')">About</a>
+    <a onclick="showPage('contact')">Contact</a>
+    <a class="nav-cta" onclick="showPage('contact')">Get a quote</a>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div class="page active" id="page-home">
+
+  <div class="hero">
+    <div class="eyebrow">Workplace physical therapy · South San Francisco Bay Area</div>
+    <h1>Keep your workforce<br><em>moving safely</em></h1>
+    <p>Licensed physical therapists, on your floor. We reduce injuries, lower workers' comp costs, and help your team go home the same way they came in.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="showPage('contact')">Request a site visit</button>
+      <button class="btn-outline" onclick="showPage('services')">See our services</button>
+    </div>
+  </div>
+
+  <div class="trust-bar">
+    <div class="trust-item">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+      Licensed PTs on-site
+    </div>
+    <div class="trust-item">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+      OSHA first aid compliant
+    </div>
+    <div class="trust-item">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+      Industrial & warehouse expertise
+    </div>
+    <div class="trust-item">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+      Cost-avoidance focused
+    </div>
+    <div class="trust-item">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      Flexible shift scheduling
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">What we do</div>
+    <h2>Proactive care, right where work happens</h2>
+    <p class="sub">Instead of waiting for injuries and filing claims, we embed licensed PTs directly into your facility to catch problems early and keep your team at full capacity.</p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-num">01</div>
+        <h3>Injury prevention</h3>
+        <p>Ergonomic assessments, movement coaching, and early intervention before a tweak becomes a claim.</p>
+      </div>
+      <div class="card">
+        <div class="card-num">02</div>
+        <h3>OSHA first aid</h3>
+        <p>On-the-spot triage that keeps recordable incidents off your OSHA 300 log — handled properly.</p>
+      </div>
+      <div class="card">
+        <div class="card-num">03</div>
+        <h3>Workers' comp reduction</h3>
+        <p>Early PT intervention cuts claim costs significantly. Documented outcomes you can show your broker.</p>
+      </div>
+      <div class="card">
+        <div class="card-num">04</div>
+        <h3>Workforce wellness</h3>
+        <p>Stretch-and-flex, body mechanics training, and toolbox talks tailored to your actual job roles.</p>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num">~30%</div>
+        <div class="stat-label">Avg. reduction in recordable incidents with onsite PT programs</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4–6×</div>
+        <div class="stat-label">ROI documented in employer onsite PT programs</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">Day 1</div>
+        <div class="stat-label">Intervention begins immediately — no clinic appointment wait</div>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      <p>"Having a PT on the floor changed how our team thinks about ergonomics. We saw fewer reportable incidents within the first few months — and our employees actually use the service."</p>
+      <cite>— EHS Manager, food manufacturing facility</cite>
+    </div>
+  </div>
+
+  <div class="cta-band">
+    <h2>Ready to protect your workforce?</h2>
+    <p>Free site consultations for employers in the South Bay Area. No obligation — just a conversation about your workforce health challenges.</p>
+    <button class="btn-white" onclick="showPage('contact')">Schedule a free consultation</button>
+  </div>
+
+</div>
+
+<!-- SERVICES -->
+<div class="page" id="page-services">
+  <div class="section">
+    <div class="section-label">Services</div>
+    <h2>What Enmo Onsite offers</h2>
+    <p class="sub">All programs are delivered by licensed physical therapists with hands-on industrial experience. We flex to your shift schedule, facility layout, and workforce size.</p>
+
+    <div class="service-row">
+      <div class="service-num">01</div>
+      <div class="service-body">
+        <h3>Injury prevention & early intervention</h3>
+        <p>Our PTs conduct musculoskeletal screenings, identify at-risk employees, and deliver brief interventions before pain becomes an injury. This is the highest-leverage program for reducing recordables and controlling claim frequency.</p>
+        <span class="tag">Most popular</span>
+      </div>
+    </div>
+
+    <div class="service-row">
+      <div class="service-num">02</div>
+      <div class="service-body">
+        <h3>OSHA first aid management</h3>
+        <p>On-site licensed PT triage means injuries that might otherwise become recordable OSHA incidents are handled at the first-aid level — legally and properly. We document everything and coordinate with your safety team.</p>
+        <span class="tag">Cost-avoidance focused</span>
+      </div>
+    </div>
+
+    <div class="service-row">
+      <div class="service-num">03</div>
+      <div class="service-body">
+        <h3>Ergonomic job analysis</h3>
+        <p>We assess workstations, lifting tasks, and repetitive motions to identify risk factors, then recommend practical solutions that fit your production constraints — not theoretical changes your floor can't implement.</p>
+        <span class="tag">Reduces repetitive strain claims</span>
+      </div>
+    </div>
+
+    <div class="service-row">
+      <div class="service-num">04</div>
+      <div class="service-body">
+        <h3>Stretch-and-flex / movement programs</h3>
+        <p>Structured warm-up and mobility programs delivered to teams at the start of shifts. Research-backed, job-specific, and designed to build a culture of movement awareness in your workforce.</p>
+        <span class="tag">Team-based</span>
+      </div>
+    </div>
+
+    <div class="service-row">
+      <div class="service-num">05</div>
+      <div class="service-body">
+        <h3>Workforce education & toolbox talks</h3>
+        <p>Short, practical talks on body mechanics, lifting technique, hydration, and fatigue management — delivered in the language of your workforce and tied to your real job tasks.</p>
+        <span class="tag">EHS program support</span>
+      </div>
+    </div>
+
+    <div style="margin-top: 3rem; text-align: center;">
+      <p style="font-size: 15px; color: var(--muted); margin-bottom: 1.5rem;">Pricing is customized by facility size, service mix, and visit frequency.</p>
+      <button class="btn-primary" onclick="showPage('contact')">Request a quote</button>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="page" id="page-about">
+  <div class="section">
+    <div class="section-label">About</div>
+    <h2>Built by a PT who's been on the floor</h2>
+    <p class="sub">Enmo Onsite was founded by a licensed physical therapist with direct experience providing PT services inside industrial facilities — not just consulting from the outside.</p>
+
+    <div class="about-layout">
+      <div class="about-text">
+        <p>Most workplace health programs are designed by people who've never watched a line worker pull 10-hour shifts. Enmo Onsite is different. Our approach is grounded in firsthand experience at real manufacturing and distribution facilities in the Bay Area.</p>
+        <p>We understand production pressure, shift schedules, safety culture, and the skepticism workers have toward corporate wellness programs. We show up ready to earn trust — and we do it by actually helping.</p>
+        <p>Enmo Onsite serves employers throughout the South San Francisco Bay Area, partnering with EHS teams, HR directors, brokers, and TPAs to build sustainable programs that deliver measurable outcomes.</p>
+        <button class="btn-primary" onclick="showPage('contact')" style="margin-top: 0.5rem;">Connect with us</button>
+      </div>
+      <div>
+        <ul class="cred-list">
+          <li><div class="cred-dot"></div> Licensed Doctor of Physical Therapy</li>
+          <li><div class="cred-dot"></div> Hands-on industrial facility PT experience</li>
+          <li><div class="cred-dot"></div> Background in multi-site PT program leadership</li>
+          <li><div class="cred-dot"></div> OSHA first aid program expertise</li>
+          <li><div class="cred-dot"></div> Workers' comp cost reduction track record</li>
+          <li><div class="cred-dot"></div> South San Francisco Bay Area based</li>
+          <li><div class="cred-dot"></div> Fluent in EHS, HR, and operations language</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="page" id="page-contact">
+  <div class="section">
+    <div class="section-label">Contact</div>
+    <h2>Let's talk about your workforce</h2>
+    <p class="sub">Whether you're dealing with rising claim costs, a high incident rate, or just want to be proactive — reach out for a free, no-pressure consultation.</p>
+
+    <div class="contact-layout">
+      <div class="contact-info">
+        <p>We serve employers throughout the South San Francisco Bay Area — manufacturing, distribution, food processing, logistics, and more. Site visits are always free.</p>
+        <div class="contact-detail"><div class="contact-dot"></div> South San Francisco Bay Area</div>
+        <div class="contact-detail"><div class="contact-dot"></div> hello@enmoonsite.com</div>
+        <div class="contact-detail"><div class="contact-dot"></div> Industrial · Warehouse · Manufacturing</div>
+        <div class="contact-detail"><div class="contact-dot"></div> Flexible scheduling around your shifts</div>
+      </div>
+
+      <div class="form-card">
+        <div id="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First name</label>
+              <input type="text" placeholder="Jane" id="f-first">
+            </div>
+            <div class="form-group">
+              <label>Last name</label>
+              <input type="text" placeholder="Smith" id="f-last">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Company</label>
+            <input type="text" placeholder="Acme Distribution" id="f-company">
+          </div>
+          <div class="form-group">
+            <label>Your role</label>
+            <select id="f-role">
+              <option value="">Select your role...</option>
+              <option>EHS Manager / Director</option>
+              <option>HR Manager / Director</option>
+              <option>Operations / Plant Manager</option>
+              <option>Risk / Workers' Comp</option>
+              <option>Broker / TPA</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="jane@company.com" id="f-email">
+          </div>
+          <div class="form-group">
+            <label>Biggest challenge (optional)</label>
+            <textarea placeholder="e.g. rising claim costs, high incident rate, ergonomic concerns..." id="f-msg"></textarea>
+          </div>
+          <button class="submit-btn" onclick="submitForm()">Send message</button>
+        </div>
+        <div class="success-msg" id="success-msg">
+          <div class="check">✓</div>
+          <h3>Message sent</h3>
+          <p>Thanks! We'll be in touch within one business day.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <a class="logo" onclick="showPage('home')" href="#">Enmo<span>Onsite</span></a>
+  <p>© 2025 Enmo Onsite · South San Francisco Bay Area · Workplace Physical Therapy</p>
+</footer>
+
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  function submitForm() {
+    var first = document.getElementById('f-first').value.trim();
+    var email = document.getElementById('f-email').value.trim();
+    if (!first || !email) { alert('Please enter your name and email.'); return; }
+    document.getElementById('contact-form').style.display = 'none';
+    document.getElementById('success-msg').style.display = 'block';
+  }
+  document.querySelectorAll('a[href="#"]').forEach(function(a) {
+    a.addEventListener('click', function(e) { e.preventDefault(); });
+  });
+</script>
+</body>
+</html>
